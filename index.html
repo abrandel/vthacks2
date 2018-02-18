@@ -36,7 +36,7 @@
     var video_out = document.getElementById("vid-box");
 
     function login(form) {
-      var phone = window.phone = PHONE({
+      var phone = window.something = PHONE({
         number        : form.username.value || "Anonymous", // listen on username line else Anonymous
         publish_key   : 'pub-c-da6a1135-eae5-44bb-86f5-3ebdd87d500b',
         subscribe_key : 'sub-c-445d9000-142a-11e8-91c1-eac6831c625c',
@@ -52,19 +52,14 @@
     function makeCall(form){
       if (!window.phone) alert("Login First!");
       else phone.dial(form.number.value);
+      
       return false;
     }
-
+  
     </script>
-   <div style="border: solid 1px #ccc; padding: 10px; text-align: center;">
-    <video id="video" width="320" controls="true">
-        <source src="video.ogv"><!-- FireFox 3.5 -->
-        <source src="movie.mp4"><!-- WebKit -->
-        Your browser does not support HTML5 video tag. Please download FireFox 3.5 or higher.
-    </video><br/>
-    <button onclick="shoot()" style="width: 64px;border: solid 2px #ccc;">Capture</button><br/>
-    <div id="output" style="display: inline-block; top: 4px; position: relative ;border: dotted 1px #ccc; padding: 2px;"></div>
-</div>
+   
+
+
 </body>
 
 </html>
