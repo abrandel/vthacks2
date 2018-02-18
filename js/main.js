@@ -73,6 +73,7 @@ function takepicture() {
 	  processImage(datanew);
 	  if ( VTHacksnewtestsnew.htm >.9)
 	  document.getElementById("lres").innerHTML = "You laughed You lost";
+	  alert("ERROR!!!");
 	  return hangup();
     } } 
   else {
