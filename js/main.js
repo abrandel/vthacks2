@@ -24,12 +24,30 @@ window.onload = function() {
       return false;
     }
 
-   /* function takepicture() { 
-} 
-	/*
+    function takepicture() { while (hangupButton==0) {
+      var context = canvas.getContext('2d');
+      if (width && height) {
+        canvas.width = width;
+        canvas.height = height;
+        context.drawImage(video, 0, 0, width, height);
+      
+        var datanew = canvas.toDataURL('image/png');
+        photo.setAttribute('src', data);
+          VTHacksnewtestsnew.htm(data);
+          if ( VTHacksnewtestsnew.htm >.9)
+          document.getElementById("lres").innerHTML = "You laughed You lost";
+          return hangup();
+     
+      }
+      else {
+        clearphoto();
+      }
+        
+      }
+      return hangup();
       }
 
-    function processImage(datanew) {
+    function processImage() {
         // **********************************************
         // *** Update or verify the following values. ***
         // **********************************************
@@ -49,7 +67,8 @@ window.onload = function() {
             "returnFaceAttributes": "smile,emotion",
         };
         // Display the image.
-        var sourceImageUrl = datanew;
+        var sourceImageUrl = document.getElementById("inputImage").value;
+        document.querySelector("#sourceImage").src = sourceImageUrl;
         // Perform the REST API call.
         $.ajax({
             url: uriBase + "?" + $.param(params),
@@ -66,10 +85,7 @@ window.onload = function() {
             // Show formatted JSON on webpage.
     $("#smileval").text(data[0].faceAttributes.smile);
     $("#happyval").text(data[0].faceAttributes.emotion.happiness);
-   var smile1 = data[0].faceAttributes.smile;
-   var happy1 = data[0].faceAttributes.emotion.happiness;
-   var result1 = happy1 + smile1;
-		return (result1);
+    
             $("#responseTextArea").val(JSON.stringify(data, null, 1));
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -79,5 +95,5 @@ window.onload = function() {
                 jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
             alert(errorString);
         });
-    }; */
+    };
 }
