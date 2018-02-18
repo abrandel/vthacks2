@@ -57,9 +57,30 @@ function gotStream(stream) {
   window.localStream = localStream = stream;
   callButton.disabled = false;
 }
+while(true) {
+function PicCycle(){
+setTimeout(takepicture(), 3000);
+} }
+function takepicture() {
+    var context = canvas.getContext('2d');
+    if (width && height) {
+      canvas.width = width;
+      canvas.height = height;
+      context.drawImage(video, 0, 0, width, height);
+    
+      var datanew = canvas.toDataURL('image/png');
+      photo.setAttribute('src', data);
+	  processImage(datanew);
+	  if ( VTHacksnewtestsnew.htm >.9)
+	  document.getElementById("lres").innerHTML = "You laughed You lost";
+	  return hangup();
+    } } 
+  else {
+      clearphoto();
+    }
+                        }
 
- /*
-        function processImage() {
+        function processImage(datanew) {
             // **********************************************
             // *** Update or verify the following values. ***
             // **********************************************
@@ -83,7 +104,7 @@ function gotStream(stream) {
             };
 
             // Display the image.
-            var sourceImageUrl = document.getElementById("inputImage").value;
+            var sourceImageUrl = datanew;
             document.querySelector("#sourceImage").src = sourceImageUrl;
 
             // Perform the REST API call.
@@ -110,6 +131,8 @@ function gotStream(stream) {
         $("#responseTextArea").val(JSON.stringify(data, null, 1));
 
             })
+            if ((data[0].faceAttributes.smile && data[0].faceAttributes.emotion.happiness)>=.7)
+           console.log(You Lose!)
 
             .fail(function(jqXHR, textStatus, errorThrown) {
                 // Display error message.
@@ -216,16 +239,6 @@ function onIceStateChange(pc, event) {
     trace(getName(pc) + ' ICE state: ' + pc.iceConnectionState);
     console.log('ICE state change event: ', event);
   }
-}
-
-function hangup() {
-  trace('Ending call');
-  pc1.close();
-  pc2.close();
-  pc1 = null;
-  pc2 = null;
-  hangupButton.disabled = true;
-  callButton.disabled = false;
 }
 
 
