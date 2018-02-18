@@ -58,64 +58,68 @@ function gotStream(stream) {
   callButton.disabled = false;
 }
 
-function start() {
-  trace('Requesting local stream');
-  startButton.disabled = true;
-  navigator.mediaDevices.getUserMedia({
-    audio: false,
-    video: true
-  })
-  .then(gotStream)
-  .catch(function(e) {
-    alert('getUserMedia() error: ' + e.name);
-  });
-}
+ /*
+        function processImage() {
+            // **********************************************
+            // *** Update or verify the following values. ***
+            // **********************************************
 
-function call() {
-  callButton.disabled = true;
-  hangupButton.disabled = false;
-  trace('Starting call');
-  startTime = window.performance.now();
-  var videoTracks = localStream.getVideoTracks();
-  var audioTracks = localStream.getAudioTracks();
-  if (videoTracks.length > 0) {
-    trace('Using video device: ' + videoTracks[0].label);
-  }
-  if (audioTracks.length > 0) {
-    trace('Using audio device: ' + audioTracks[0].label);
-  }
-  var servers = null;
-  // Add pc1 to global scope so it's accessible from the browser console
-  window.pc1 = pc1 = new RTCPeerConnection(servers);
-  trace('Created local peer connection object pc1');
-  pc1.onicecandidate = function(e) {
-    onIceCandidate(pc1, e);
-  };
-  // Add pc2 to global scope so it's accessible from the browser console
-  window.pc2 = pc2 = new RTCPeerConnection(servers);
-  trace('Created remote peer connection object pc2');
-  pc2.onicecandidate = function(e) {
-    onIceCandidate(pc2, e);
-  };
-  pc1.oniceconnectionstatechange = function(e) {
-    onIceStateChange(pc1, e);
-  };
-  pc2.oniceconnectionstatechange = function(e) {
-    onIceStateChange(pc2, e);
-  };
-  pc2.onaddstream = gotRemoteStream;
+            // Replace the subscriptionKey string value with your valid subscription key.
+            var subscriptionKey = "8d3c23ec9e66474eb8c482a81d11dae6";
 
-  pc1.addStream(localStream);
-  trace('Added local stream to pc1');
+            // Replace or verify the region.
+            //
+            // You must use the same region in your REST API call as you used to obtain your subscription keys.
+            // For example, if you obtained your subscription keys from the westus region, replace
+            // "westcentralus" in the URI below with "westus".
+            //
+            // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
+            // a free trial subscription key, you should not need to change this region.
+            var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
 
-  trace('pc1 createOffer start');
-  pc1.createOffer(
-    offerOptions
-  ).then(
-    onCreateOfferSuccess,
-    onCreateSessionDescriptionError
-  );
-}
+            // Request parameters.
+            var params = {
+                "returnFaceAttributes": "smile,emotion",
+            };
+
+            // Display the image.
+            var sourceImageUrl = document.getElementById("inputImage").value;
+            document.querySelector("#sourceImage").src = sourceImageUrl;
+
+            // Perform the REST API call.
+            $.ajax({
+                url: uriBase + "?" + $.param(params),
+
+                // Request headers.
+                beforeSend: function(xhrObj){
+                    xhrObj.setRequestHeader("Content-Type","application/json");
+                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+                },
+
+                type: "POST",
+
+                // Request body.
+                data: '{"url": ' + '"' + sourceImageUrl + '"}',
+            })
+
+            .done(function(data) {
+                // Show formatted JSON on webpage.
+    		$("#smileval").text(data[0].faceAttributes.smile);
+    		$("#happyval").text(data[0].faceAttributes.emotion.happiness);
+
+        $("#responseTextArea").val(JSON.stringify(data, null, 1));
+
+            })
+
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                // Display error message.
+                var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+                errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+                    jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
+                alert(errorString);
+            });
+        };
+        */
 
 function onCreateSessionDescriptionError(error) {
   trace('Failed to create session description: ' + error.toString());
